@@ -1,0 +1,16 @@
+{
+  "name": "whiteboard-kanban",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A research whiteboard: add PDFs, highlight passages, turn them into cards and sort them on a kanban board.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "pdfjs-dist": "3.11.174"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
