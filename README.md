@@ -1,6 +1,6 @@
-# Whiteboard Kanban
+# Research Board
 
-A research tool that runs in the browser. Put PDFs on a whiteboard, highlight passages as you read, turn each highlight into a card, then switch to a kanban view and sort the cards into columns and priorities. (The page itself is titled Marginalia.)
+A research tool that runs in the browser. Put PDFs on a whiteboard, highlight passages as you read, turn each highlight into a card, then switch to a kanban view and sort the cards into columns and priorities.
 
 ## Run it locally
 

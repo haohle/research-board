@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="A whiteboard for research: add PDFs, highlight passages, turn them into cards and sort them on a kanban board.">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
-<title>Marginalia</title>
+<title>Research Board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -261,7 +261,7 @@ body.kdragging .cell:empty::before { content: "Drop here"; color: var(--ink-3); 
 
 <div class="app">
   <header class="topbar">
-    <div class="brand"><h1>Margin<i>alia</i></h1><span>Read, highlight, sort.</span></div>
+    <div class="brand"><h1>Research <i>Board</i></h1><span>Read, highlight, sort.</span></div>
     <div class="switch" role="group" aria-label="View">
       <button id="vWb" aria-pressed="true">Whiteboard</button>
       <button id="vKb" aria-pressed="false">Kanban <span class="n" id="cardCount">0</span></button>
@@ -788,7 +788,7 @@ async function exportBoard() {
     for (const id of localFiles) { const b = await IDB.get('files', id); if (b) files[id] = await blobToB64(b); }
     const json = JSON.stringify({ app: 'marginalia', version: 1, exportedAt: new Date().toISOString(), cards: [...S.cards.values()], pdfs: [...S.pdfs.values()], board: S.board, files });
     const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
-    const a = document.createElement('a'); a.href = url; a.download = `marginalia-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    const a = document.createElement('a'); a.href = url; a.download = `research-board-backup-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
     toast('Backup downloaded. Import it on any device to restore your board.');
   } catch { toast('The backup could not be created. Your board may be too large to export in one file.'); }
@@ -796,7 +796,7 @@ async function exportBoard() {
 async function importBoard(file) {
   let d;
   try { d = JSON.parse(await file.text()); } catch { d = null; }
-  if (!d || d.app !== 'marginalia' || !Array.isArray(d.cards) || !Array.isArray(d.pdfs)) { toast('That file is not a Marginalia backup.'); return; }
+  if (!d || d.app !== 'marginalia' || !Array.isArray(d.cards) || !Array.isArray(d.pdfs)) { toast('That file is not a Research Board backup.'); return; }
   let full = false;
   for (const [id, b64] of Object.entries(d.files || {})) {
     try { await IDB.put('files', id, b64ToBlob(b64)); localFiles.add(id); pdfCache.delete(id); } catch { full = true; break; }
